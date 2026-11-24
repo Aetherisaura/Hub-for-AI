@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090b12">
+  <title>Orbit AI — Your AI workspace</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#"><span class="brand-mark">✳</span><span>orbit<span class="brand-light">.ai</span></span></a>
+      <button class="new-chat" id="newChat"><span>＋</span> New chat</button>
+      <div class="side-label">WORKSPACE</div>
+      <button class="nav-item active" data-view="chat"><span>◫</span> Chat</button>
+      <button class="nav-item" data-view="compare"><span>▦</span> Compare models</button>
+      <button class="nav-item" data-view="models"><span>✧</span> Explore models</button>
+      <div class="side-label history-label">RECENT</div>
+      <div id="history" class="history-list"><p class="muted small">Your chats will appear here.</p></div>
+      <div class="sidebar-bottom">
+        <div class="status-dot"></div><span>Free model directory</span>
+        <button class="settings-shortcut" id="openSettings" aria-label="Settings">⚙</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="mobile-brand">✳ orbit.ai</div>
+        <div class="breadcrumb" id="pageTitle">Chat <span>/</span> New conversation</div>
+        <div class="top-actions">
+          <span class="free-pill"><i></i> Free models</span>
+          <button class="icon-button" id="settingsBtn" title="Settings">⚙</button>
+        </div>
+      </header>
+
+      <section class="view active" id="chatView">
+        <div class="welcome" id="welcome">
+          <div class="orb">✳</div>
+          <div class="eyebrow">ONE WORKSPACE. MANY MINDS.</div>
+          <h1>What are we<br><span>thinking about?</span></h1>
+          <p>Explore different AI models, ask questions, and find the answer that works for you.</p>
+          <div class="suggestions">
+            <button class="suggestion" data-prompt="Explain how black holes work in simple terms."><b>✦</b><span><strong>Learn something</strong><small>Explain a tricky topic simply</small></span></button>
+            <button class="suggestion" data-prompt="Give me five creative ideas for a small website project."><b>⌘</b><span><strong>Get creative</strong><small>Brainstorm fresh ideas</small></span></button>
+            <button class="suggestion" data-prompt="Help me make a clear plan for a project I want to finish."><b>↗</b><span><strong>Make a plan</strong><small>Turn a goal into steps</small></span></button>
+          </div>
+        </div>
+        <div class="messages" id="messages"></div>
+        <div class="composer-wrap">
+          <div class="model-row">
+            <label for="modelSelect">MODEL</label>
+            <select id="modelSelect"><option value="">Choose a model…</option></select>
+            <button class="text-button" id="refreshModels">↻ Refresh models</button>
+          </div>
+          <form id="chatForm" class="composer">
+            <textarea id="promptInput" rows="1" placeholder="Message your AI…" aria-label="Message your AI"></textarea>
+            <button class="send-button" type="submit" aria-label="Send message">↑</button>
+          </form>
+          <div class="composer-foot"><span>AI can make mistakes. Check important information.</span><span id="keyHint">Add a free API key in settings to begin.</span></div>
+        </div>
+      </section>
+
+      <section class="view" id="compareView">
+        <div class="page-intro"><div class="eyebrow">SIDE BY SIDE</div><h1>Compare <span>answers.</span></h1><p>Ask the same question to up to three models and compare their responses.</p></div>
+        <div class="compare-controls">
+          <textarea id="comparePrompt" rows="2" placeholder="What would you like to ask?"></textarea>
+          <button class="primary-button" id="runCompare">Compare answers <span>→</span></button>
+        </div>
+        <div class="compare-grid" id="compareGrid">
+          <div class="compare-empty">Your model responses will appear here.</div>
+        </div>
+      </section>
+
+      <section class="view" id="modelsView">
+        <div class="page-intro"><div class="eyebrow">MODEL DIRECTORY</div><h1>Find your <span>AI.</span></h1><p>Browse free models currently listed by OpenRouter. Availability and limits can change.</p></div>
+        <div class="model-toolbar"><input id="modelSearch" placeholder="Search models…" type="search"><button class="text-button" id="reloadDirectory">↻ Refresh</button></div>
+        <div class="directory-grid" id="directoryGrid"><div class="loading-card">Connect your free API key, then refresh the directory.</div></div>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="settingsModal" hidden>
+    <section class="settings-modal" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+      <button class="close-modal" id="closeSettings" aria-label="Close">×</button>
+      <div class="eyebrow">YOUR CONNECTION</div><h2 id="settingsTitle">Settings</h2>
+      <p class="muted">Connect OpenRouter to use its available free models in one place.</p>
+      <label class="field-label" for="apiKey">OPENROUTER API KEY</label>
+      <input id="apiKey" type="password" placeholder="sk-or-v1-…" autocomplete="off">
+      <div class="privacy-note"><span>⌑</span><p>Your key stays in this browser's local storage and is sent to OpenRouter when you make a request. Don't use this on a shared device.</p></div>
+      <div class="modal-actions"><a href="https://openrouter.ai/keys" target="_blank" rel="noreferrer">Get an API key ↗</a><button class="primary-button" id="saveKey">Save key</button></div>
+      <p class="tiny muted">Free models may have usage caps, queues, or change availability. Some models may require credits.</p>
+    </section>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="js/app.js"></script>
+</body>
+</html>
